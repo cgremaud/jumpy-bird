@@ -10,6 +10,7 @@ public class RedBirdController : MonoBehaviour
     public float bumpForce = 10;
     private GameObject player;
     public GameManager gameManager;
+    public float maxSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,19 +46,19 @@ public class RedBirdController : MonoBehaviour
         {
 
         }
-        else if (roll >= 80 & roll < 85)
+        else if (roll >= 80 & roll < 85 & birdRb.velocity.x < maxSpeed & birdRb.velocity.y < maxSpeed)
         {
             birdRb.AddForce(Vector2.up * bumpForce * Time.deltaTime, ForceMode2D.Impulse);
         }
-        else if (roll >= 85 & roll < 90)
+        else if (roll >= 85 & roll < 90 & birdRb.velocity.x < maxSpeed & birdRb.velocity.y < maxSpeed)
         {
             birdRb.AddForce(Vector2.right * bumpForce * Time.deltaTime, ForceMode2D.Impulse);
         }
-        else if (roll >= 90 & roll < 95)
+        else if (roll >= 90 & roll < 95 & birdRb.velocity.x < maxSpeed & birdRb.velocity.y < maxSpeed)
         {
             birdRb.AddForce(Vector2.right * -bumpForce * Time.deltaTime, ForceMode2D.Impulse);
         }
-        else
+        else if (roll >= 95 & roll < 100 & birdRb.velocity.x < maxSpeed & birdRb.velocity.y < maxSpeed)
         {
             Vector2 towardsPlayer = (player.transform.position - transform.position);
             birdRb.AddForce(towardsPlayer * bumpForce * Time.deltaTime, ForceMode2D.Impulse);
