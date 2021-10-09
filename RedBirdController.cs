@@ -6,7 +6,7 @@ public class RedBirdController : MonoBehaviour
 {
     private Rigidbody2D birdRb;
     private int yMax = 10;
-    private int xLim = 60;
+    private int xLim = 70;
     public float bumpForce = 10;
     private GameObject player;
     public GameManager gameManager;
