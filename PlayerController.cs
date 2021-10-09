@@ -21,10 +21,15 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem killParticle;
     public bool jumpKeyHeld = false;
     private AudioSource playerAudio;
-   
+    public AudioSource jumpSound;
+    
+
+
     // Start is called before the first frame update
     void Start()
     {
+        jumpSound = GameObject.Find("Jump Sound").GetComponent<AudioSource>();
+        
         Physics.gravity *= gravityMod;
         playerRb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
@@ -88,8 +93,10 @@ public class PlayerController : MonoBehaviour
     {
         if (playerRb.position.y < deathThreshhold)
         {
+            
             gameManager.GameOver();
             Destroy(gameObject);
+            
         }
     }
     private void RotateAnimPlayer()
@@ -124,6 +131,7 @@ public class PlayerController : MonoBehaviour
             touchedEnemy = false;
             playerAnim.SetTrigger("jump_t");
             jumpKeyHeld = true;
+            jumpSound.Play();
         } else if (Input.GetKeyUp(KeyCode.Space) & !isOnGround)
         {
             jumpKeyHeld = false;

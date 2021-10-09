@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public GameObject enemyObject;
     public GameObject player;
     public AudioSource mainAudio;
+    public AudioSource deathSound;
+
 
     // Start is called before the first frame update
     public void StartGame()
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
+        deathSound.Play();
     }
 
     public void RestartGame()
