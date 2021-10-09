@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public float spawnInterval = 2;
     public GameObject enemyObject;
     public GameObject player;
+    public AudioSource mainAudio;
 
     // Start is called before the first frame update
     public void StartGame()
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
         UpdateScore(0);
         titleScreen.gameObject.SetActive(false);
         StartCoroutine(SpawnEnemy());
+        mainAudio.gameObject.SetActive(false);
     }
     public IEnumerator SpawnEnemy()
     {
@@ -37,7 +39,7 @@ public class GameManager : MonoBehaviour
             float y = Random.Range(player.transform.position.y +1, player.transform.position.y + 4);
             Vector2 spawnPos = new Vector2(x, y);
             Instantiate(enemyObject, spawnPos, enemyObject.transform.rotation);
-            //spawnInterval = Random.Range(0, 5);
+            spawnInterval = Random.Range(0, 5);
         }
     }
     public void UpdateScore(int scoreToAdd)
@@ -56,10 +58,5 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private int comboCount = 1;
     public ParticleSystem killParticle;
     public bool jumpKeyHeld = false;
+    private AudioSource playerAudio;
    
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
         Physics.gravity *= gravityMod;
         playerRb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -72,12 +74,12 @@ public class PlayerController : MonoBehaviour
             //push back if going greater than maxSpeed
             if (playerRb.velocity.x > maxSpeed)
             {
-                Vector2 pushBack = new Vector2(10f, 0);
+                Vector2 pushBack = new Vector2(90f, 0);
                 playerRb.AddForce(Vector2.right * -pushBack, ForceMode2D.Force);
             }
             else if (playerRb.velocity.x < -maxSpeed)
             {
-                Vector2 pushBack = new Vector2(10f, 0);
+                Vector2 pushBack = new Vector2(90f, 0);
                 playerRb.AddForce(Vector2.right * pushBack, ForceMode2D.Force);
             }
         }
@@ -151,6 +153,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Collision!");
             touchedEnemy = true;
             Instantiate(killParticle, collision.transform.position, killParticle.transform.rotation);
+            playerAudio.Play();
         }
         if (collision.gameObject.CompareTag("EnemyHurtbox") & collision.collider.GetType() == typeof(PolygonCollider2D) & playerRb.velocity.y <= 0.5)
         {
