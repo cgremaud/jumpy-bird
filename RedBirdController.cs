@@ -5,7 +5,7 @@ using UnityEngine;
 public class RedBirdController : MonoBehaviour
 {
     private Rigidbody2D birdRb;
-    private int yMax = 15;
+    private int yMax = 20;
     //private int xLim = 200;
     public float bumpForce = 10;
     private GameObject player;

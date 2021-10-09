@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour
         {
             
             yield return new WaitForSeconds(spawnInterval);
-            float x = Random.Range(player.transform.position.x - 10, player.transform.position.x + 10);
-            float y = Random.Range(player.transform.position.y +1, player.transform.position.y + 4);
+            float x = Random.Range(player.transform.position.x - 20, player.transform.position.x + 20);
+            float y = Random.Range(player.transform.position.y +3, player.transform.position.y + 10);
             Vector2 spawnPos = new Vector2(x, y);
             Instantiate(enemyObject, spawnPos, enemyObject.transform.rotation);
             spawnInterval = Random.Range(0, 5);

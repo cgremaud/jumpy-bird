@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Touch Grass");
         } 
         //Handle collision w/ enemy
-        if (collision.collider.GetType() == typeof(BoxCollider2D) & collision.gameObject.CompareTag("EnemyHurtbox") & playerRb.velocity.y <= 0)
+        if (collision.collider.GetType() == typeof(BoxCollider2D) & collision.gameObject.CompareTag("EnemyHurtbox") & Vector2.Dot(playerRb.velocity, Vector2.down) > 0.1)
         {
             gameManager.UpdateScore(10 * comboCount); //TODO replace 10 with collision.gameObject.scoreVal
             if (!isOnGround & touchedEnemy)
@@ -163,10 +163,10 @@ public class PlayerController : MonoBehaviour
             Instantiate(killParticle, collision.transform.position, killParticle.transform.rotation);
             playerAudio.Play();
         }
-        if (collision.gameObject.CompareTag("EnemyHurtbox") & collision.collider.GetType() == typeof(PolygonCollider2D) & playerRb.velocity.y <= 0.5)
+        if (collision.gameObject.CompareTag("EnemyHurtbox") & collision.collider.GetType() == typeof(PolygonCollider2D))
         {
             
-            touchedEnemy = true;
+            touchedEnemy = true; //This allows the player to combo any time it bumps an enemy. May change. 
         }
     }
 }
