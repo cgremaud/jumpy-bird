@@ -150,10 +150,10 @@ public class PlayerController : MonoBehaviour
             comboCount = 1;
             //Debug.Log("Touch Grass");
         } 
-        //Handle collision w/ enemy
+        //Detect kill
         if (collision.collider.GetType() == typeof(BoxCollider2D) & collision.gameObject.CompareTag("EnemyHurtbox") & playerRb.velocity.y < 0.5)
         {
-            gameManager.UpdateScore(10 * comboCount); //TODO replace 10 with collision.gameObject.scoreVal
+            gameManager.UpdateScore(10 * comboCount); //TODO replace 10 with collision.gameObject.scoreVal & | check that it is ! null before calling UpdateScore
             if (!isOnGround & touchedEnemy)
             {
                 comboCount += 1;
@@ -166,14 +166,11 @@ public class PlayerController : MonoBehaviour
             playerAudio.Play();
         }
         //detect hurt,
-        if (collision.collider.GetType() == typeof(PolygonCollider2D) & collision.gameObject.CompareTag("EnemyHurtbox"))
+        if (collision.collider.GetType() == typeof(PolygonCollider2D) & collision.gameObject.CompareTag("EnemyHurtbox") & collision.collider.transform.position.y > transform.position.y)
         {
+            gameManager.UpdateHealthText(1); //well this breaks it. 
             health -= 1;
         }
-        //if (collision.gameObject.CompareTag("EnemyHurtbox") & collision.collider.GetType() == typeof(PolygonCollider2D))
-        //{
-            
-        //    touchedEnemy = true; //This allows the player to combo any time it bumps an enemy. May change. 
-        //}
+        
     }
 }

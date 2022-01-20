@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour
     public bool isLevelComplete;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI healthText;
     public GameObject titleScreen;
     public Button restartButton;
     public int score;
+    public int playerHealth;
     public SpawnManager spawnManager;
     public float spawnInterval = 2;
     public GameObject enemyObject;
@@ -25,8 +27,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public void StartGame()
     {
+        playerHealth = 10; //hacky but checking
         isGameActive = true;
         UpdateScore(0);
+        UpdateHealthText(0); //needed? 
         titleScreen.gameObject.SetActive(false);
         StartCoroutine(SpawnEnemy());
         mainAudio.gameObject.SetActive(false);
@@ -48,6 +52,12 @@ public class GameManager : MonoBehaviour
     {
         score += scoreToAdd;
         scoreText.text = "Score: " + score;
+    }
+
+    public void UpdateHealthText(int healthLost)
+    {
+        playerHealth -= healthLost;
+        healthText.text = "Health: " + playerHealth;
     }
 
     public void GameOver()
