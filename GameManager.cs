@@ -16,12 +16,14 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public int score;
     public int playerHealth;
+    public int currentLevel;
     public SpawnManager spawnManager;
     public float spawnInterval = 2;
     public GameObject enemyObject;
     public GameObject player;
     public AudioSource mainAudio;
     public AudioSource deathSound;
+    public AudioSource hurtSound;
 
 
     // Start is called before the first frame update
@@ -58,6 +60,12 @@ public class GameManager : MonoBehaviour
     {
         playerHealth -= healthLost;
         healthText.text = "Health: " + playerHealth;
+        hurtSound.Play();
+    }
+
+    public void EndLevel()
+    {
+
     }
 
     public void GameOver()
