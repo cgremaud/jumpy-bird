@@ -11,6 +11,7 @@ public class FrogManController : MonoBehaviour
     public float radius = 2;
     private Rigidbody2D frogRb;
     private Animator frogAnim;
+    private bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +25,13 @@ public class FrogManController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Patrol();
-        Run();
-        //Rotate(); //Causes uncontrolled flipping every frame. 
+        if (isGrounded)
+        {
+            Patrol();
+            Run();
+        }
+        
+        
     }
 
     private void Patrol()
@@ -34,15 +39,11 @@ public class FrogManController : MonoBehaviour
         transform.Translate(Vector3.right * useSpeed * Time.deltaTime);
         if (transform.position.x - origX > radius)
         {
-            //useSpeed = -speed;
             gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
-            //Rotate();
         }
         else if (transform.position.x - origX < -radius)
         {
-            //useSpeed = speed;
             gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-            //Rotate();
         }
     }
 
@@ -54,15 +55,15 @@ public class FrogManController : MonoBehaviour
         }
     }
 
-    private void Rotate()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        //if (frogRb.velocity.x > 0 & gameObject.transform.rotation.y != 0)
-        //{
-        //    gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-        //}
-        //else if (frogRb.velocity.x < 0 & gameObject.transform.rotation.y == 0)
-        //{
-            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
-        //}
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
 }

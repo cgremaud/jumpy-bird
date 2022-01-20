@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool jumpKeyHeld = false;
     private AudioSource playerAudio;
     public AudioSource jumpSound;
+    public int health;
     
 
 
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
+        health = 10;
     }
 
     // Update is called once per frame
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour
     }
     private void CheckDeath()
     {
-        if (playerRb.position.y < deathThreshhold)
+        if (playerRb.position.y < deathThreshhold | health <= 0)
         {
             
             gameManager.GameOver();
@@ -162,6 +164,11 @@ public class PlayerController : MonoBehaviour
             touchedEnemy = true;
             Instantiate(killParticle, collision.transform.position, killParticle.transform.rotation);
             playerAudio.Play();
+        }
+        //detect hurt,
+        if (collision.collider.GetType() == typeof(PolygonCollider2D) & collision.gameObject.CompareTag("EnemyHurtbox"))
+        {
+            health -= 1;
         }
         //if (collision.gameObject.CompareTag("EnemyHurtbox") & collision.collider.GetType() == typeof(PolygonCollider2D))
         //{
