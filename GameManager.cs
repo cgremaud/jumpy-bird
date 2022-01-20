@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     public int currentLevel;
     public SpawnManager spawnManager;
     public float spawnInterval = 2;
-    public float spawnIntervalMin;
-    public float spawnIntervalMax;
+    public float spawnIntervalMin = 3;
+    public float spawnIntervalMax = 7;
     public GameObject enemyObject;
     public GameObject player;
     public AudioSource mainAudio;
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
             float y = Random.Range(player.transform.position.y +3, player.transform.position.y + 10);
             Vector2 spawnPos = new Vector2(x, y);
             Instantiate(enemyObject, spawnPos, enemyObject.transform.rotation);
-            spawnInterval = Random.Range(0, 5); //possibly refactor this to set a new random min and max every time and then draw from between them? Seems calculation heavy and slow. 
+            spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax); //possibly refactor this to set a new random min and max every time and then draw from between them? Seems calculation heavy and slow. 
         }
     }
     public void UpdateScore(int scoreToAdd)

@@ -166,9 +166,9 @@ public class PlayerController : MonoBehaviour
             playerAudio.Play();
         }
         //detect hurt,
-        if (collision.collider.GetType() == typeof(PolygonCollider2D) & collision.gameObject.CompareTag("EnemyHurtbox") & collision.collider.transform.position.y > transform.position.y)
+        if (collision.collider.GetType() == typeof(PolygonCollider2D) & collision.gameObject.CompareTag("EnemyHurtbox") & collision.collider.transform.position.y > transform.position.y) 
         {
-            gameManager.UpdateHealthText(1); //well this breaks it. 
+            gameManager.UpdateHealthText(1);  
             health -= 1;
         }
         
